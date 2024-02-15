@@ -56,7 +56,7 @@ app.put('/notas/:id', (req,res)=>{
         important: body.important ?? false
     })
 
-    Note.findOneAndUpdate({ id: ID }, updatedNote, { new: true, runValidators: true })
+    note.findOneAndUpdate({ id: ID }, updatedNote, { new: true, runValidators: true })
         .then(updatedNote => {
             if (!updatedNote) {
                 return res.status(404).json({ error: 'Note not found' });
