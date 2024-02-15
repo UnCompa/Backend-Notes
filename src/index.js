@@ -7,24 +7,40 @@ const Note = require('./models/note')
 const app = express()
 app.use(cors())
 app.use(express.json())
-const PORT = 3000
+const PORT = process.env.PORT ?? 3000
 
 app.get('/notas', (req, res) => {
     Note.find({}).then(notes => {
         res.json(notes)
-      })
+    })
 })
 app.get('/notas/:id', (req, res) => {
-    const id = Number(req.params.id)
-    const nota = notes.find(note => note.id === id)
-    console.log(nota);
-    if (nota) {
-         res.json(nota)
-    } else { 
-        res.status(404).end() 
-    }
+    Note.findById(req.params.id).then(note => {
+        if (note) {
+            res.json(note)
+        } else {
+            res.status(404).end()
+        }
+    })
 })
+app.post('/notas/', (req, res) => {
+        const body = req.body
 
-app.listen(PORT, () => {
-    console.log(`Puerto abierto en el http://localhost:${PORT}`)
-})
+        if (body.content === undefined) {
+            return res.status(400).json({ error: 'content missing' })
+        }
+
+        const note = new Note({
+            title: body.title,
+            content: body.content,
+            important: body.important || false,
+        })
+
+        note.save().then(savedNote => {
+            res.json(savedNote)
+        })
+    })
+
+    app.listen(PORT, () => {
+        console.log(`Puerto abierto en el http://localhost:${PORT}`)
+    })
