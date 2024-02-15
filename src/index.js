@@ -23,7 +23,7 @@ app.get('/notas/:id', (req, res) => {
         }
     })
 })
-app.post('/notas/', (req, res) => {
+app.post('/notas', (req, res) => {
         const body = req.body
 
         if (body.content === undefined) {
@@ -44,3 +44,28 @@ app.post('/notas/', (req, res) => {
     app.listen(PORT, () => {
         console.log(`Puerto abierto en el http://localhost:${PORT}`)
     })
+app.put('/notas/:id', (req,res)=>{
+    const ID = req.params.id
+    const body = req.body
+    if (body.content === undefined) {
+        return res.status(400).json({ error: 'content missing' })
+    }
+    const note = new Note({
+        title: body.title,
+        content: body.content,
+        important: body.important ?? false
+    })
+
+    Note.findOneAndUpdate({ id: ID }, updatedNote, { new: true, runValidators: true })
+        .then(updatedNote => {
+            if (!updatedNote) {
+                return res.status(404).json({ error: 'Note not found' });
+            }
+            res.json(updatedNote);
+        })
+        .catch(error => {
+            console.error('Error updating note:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        });
+
+})
