@@ -47,7 +47,6 @@ app.post('/notas', (req, res) => {
 app.put('/notas/:id', (req,res)=>{
     const ID = req.params.id
     const body = req.body
-    console.log(body);
     if (body.content === undefined) {
         return res.status(400).json({ error: 'content missing' })
     }
@@ -70,3 +69,18 @@ app.put('/notas/:id', (req,res)=>{
         });
 
 })
+app.delete('/notas/:id', (req, res) => {
+    const ID = req.params.id;
+
+    Note.findByIdAndDelete(ID)
+        .then(deletedNote => {
+            if (!deletedNote) {
+                return res.status(404).json({ error: 'Note not found' });
+            }
+            res.json({ message: 'Note deleted successfully' });
+        })
+        .catch(error => {
+            console.error('Error deleting note:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        });
+});

@@ -17,7 +17,9 @@ PUT http://localhost:3000/notas/65ce0d47f831bc2e51c8ccad
 Content-Type: application/json
 
 {
-    "title": "Prueba numero 2",
+    "title": "Prueba numero",
     "content": "Practicando",
     "important": true
 }
+### Delete
+DELETE http://localhost:3000/notas/65ce0d1766b63a0c8459398e
