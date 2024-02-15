@@ -47,16 +47,17 @@ app.post('/notas', (req, res) => {
 app.put('/notas/:id', (req,res)=>{
     const ID = req.params.id
     const body = req.body
+    console.log(body);
     if (body.content === undefined) {
         return res.status(400).json({ error: 'content missing' })
     }
-    const note = new Note({
+
+    const updatedNote = {
         title: body.title,
         content: body.content,
         important: body.important ?? false
-    })
-
-    note.findOneAndUpdate({ id: ID }, updatedNote, { new: true, runValidators: true })
+    }
+    Note.findOneAndUpdate({ _id: ID }, updatedNote , { new: true, runValidators: true })
         .then(updatedNote => {
             if (!updatedNote) {
                 return res.status(404).json({ error: 'Note not found' });
