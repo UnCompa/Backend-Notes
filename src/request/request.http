@@ -7,7 +7,7 @@ POST http://localhost:3000/notas
 Content-Type: application/json
 
 {
-    "title": "Probando todo :D",
+    "title": "Nota de nuevo",
     "autor": "UnCompa",
     "content": "Lorem ipsum akdioasjod",
     "important": true
@@ -15,13 +15,5 @@ Content-Type: application/json
 
 ### Put
 PUT http://localhost:3000/notas/65d345be8375807c95d9df5d
-Content-Type: application/json
-
-{
-    "title": "Prueba numero",
-    "autor": "Pepito",
-    "content": "Practicando",
-    "important": true
-}
 ### Delete
-DELETE http://localhost:3000/notas/65d345be8375807c95d9df5d
+DELETE http://localhost:3000/notas/65d38b68763aebb2c9badc03

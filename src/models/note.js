@@ -16,10 +16,16 @@ mongoose.connect(url)
         type: String,
         default: Date.now,
         set: function(v) {
-            const date = v instanceof Date ? v : new Date(v);
-            const formattedDate = `${date.getDate()}-${'0' + (date.getMonth() + 1)}-${date.getFullYear()}`;
-            return formattedDate;
-        }
+          const date = v instanceof Date ? v : new Date(v);
+          const day = ('0' + date.getDate()).slice(-2); // Añade un cero adelante si es necesario
+          const month = ('0' + (date.getMonth() + 1)).slice(-2); // Añade un cero adelante si es necesario
+          const year = date.getFullYear();
+          const hours = ('0' + date.getHours()).slice(-2); // Añade un cero adelante si es necesario
+          const minutes = ('0' + date.getMinutes()).slice(-2); // Añade un cero adelante si es necesario
+      
+          const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}`;
+          return formattedDate;
+      }
     },
     important: Boolean
 });
