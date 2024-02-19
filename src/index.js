@@ -10,7 +10,7 @@ app.use(express.json())
 const PORT = process.env.PORT ?? 3000
 
 app.get('/notas', (req, res) => {
-    Note.find({}).then(notes => {
+    Note.find({}).sort({date: -1}).then(notes => {
         res.json(notes)
     })
 })
@@ -31,8 +31,9 @@ app.post('/notas', (req, res) => {
         }
 
         const note = new Note({
-            title: body.title,
-            content: body.content,
+            title: body.title || "Sin titulo",
+            autor: body.autor || "Anonimo",
+            content: body.content || "",
             important: body.important || false,
         })
 
@@ -44,6 +45,7 @@ app.post('/notas', (req, res) => {
     app.listen(PORT, () => {
         console.log(`Puerto abierto en el http://localhost:${PORT}`)
     })
+
 app.put('/notas/:id', (req,res)=>{
     const ID = req.params.id
     const body = req.body
@@ -52,8 +54,9 @@ app.put('/notas/:id', (req,res)=>{
     }
 
     const updatedNote = {
-        title: body.title,
-        content: body.content,
+        title: body.title || "",
+        autor: body.autor || "",
+        content: body.content || "",
         important: body.important ?? false
     }
     Note.findOneAndUpdate({ _id: ID }, updatedNote , { new: true, runValidators: true })

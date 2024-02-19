@@ -1,25 +1,27 @@
 ### Get
 GET http://localhost:3000/notas
 ### Get for id
-GET http://localhost:3000/notas/65ce0d47f831bc2e51c8ccad
+GET http://localhost:3000/notas/65d345be8375807c95d9df5d
 ### Post 
 POST http://localhost:3000/notas
 Content-Type: application/json
 
 {
-    "title": "Probando todo :D de nuevo",
+    "title": "Probando todo :D",
+    "autor": "UnCompa",
     "content": "Lorem ipsum akdioasjod",
     "important": true
 }
 
 ### Put
-PUT http://localhost:3000/notas/65ce0d47f831bc2e51c8ccad
+PUT http://localhost:3000/notas/65d345be8375807c95d9df5d
 Content-Type: application/json
 
 {
     "title": "Prueba numero",
+    "autor": "Pepito",
     "content": "Practicando",
     "important": true
 }
 ### Delete
-DELETE http://localhost:3000/notas/65ce0d1766b63a0c8459398e
+DELETE http://localhost:3000/notas/65d345be8375807c95d9df5d
