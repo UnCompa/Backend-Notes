@@ -1,11 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const morgan = require('morgan')
 const notes = require('./notas.json')
 require('./mongo')
 const Note = require('./models/note')
 const app = express()
 app.use(cors())
+app.use(morgan())
 app.use(express.json())
 const PORT = process.env.PORT ?? 3000
 
